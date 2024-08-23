@@ -17,10 +17,39 @@ const Detail = () => {
         </div>
         <div className="option">
           <div className="title">
-            <span>Chat Settings</span>
+            <span>Privacy % help</span>
             <img src="./arrowUp.png" alt="" />
           </div>
         </div>
+        <div className="option">
+          <div className="title">
+            <span>Shared Photos</span>
+            <img src="./arrowUp.png" alt="" />
+          </div>
+          <div className="photos">
+            <div className="photoItem">
+              <div className="photoDetail">
+                <img src="theme.png" alt="" />
+                <span>photo_2024_2.png</span>
+              </div>
+              <img src="./download.png" alt="" className="icon" />
+            </div>
+            <div className="photoItem">
+              <div className="photoDetail">
+                <img src="theme.png" alt="" />
+                <span>photo_2024_2.png</span>
+              </div>
+              <img src="./download.png" alt="" className="icon" />
+            </div>
+          </div>
+        </div>
+        <div className="option">
+          <div className="title">
+            <span>Shared Files</span>
+            <img src="./arrowUp.png" alt="" />
+          </div>
+        </div>
+        <button>Block User</button>
       </div>
     </div>
   );

@@ -41,6 +41,7 @@ const Chat = () => {
             <span>1 min ago</span>
           </div>
         </div>
+
         <div className="message own">
           <img src="./avatar.png" alt="" />
           <div className="texts">
@@ -51,76 +52,7 @@ const Chat = () => {
         <div className="message">
           <img src="./avatar.png" alt="" />
           <div className="texts">
-            <p>hello my name is Amrita</p>
-            <span>1 min ago</span>
-          </div>
-        </div>
-        <div className="message own">
-          <img src="./avatar.png" alt="" />
-          <div className="texts">
-            <p>hello my name is Amrita</p>
-            <span>1 min ago</span>
-          </div>
-        </div>
-        <div className="message">
-          <img src="./avatar.png" alt="" />
-          <div className="texts">
-            <p>hello my name is Amrita</p>
-            <span>1 min ago</span>
-          </div>
-        </div>
-        <div className="message own">
-          <img src="./avatar.png" alt="" />
-          <div className="texts">
-            <p>hello my name is Amrita</p>
-            <span>1 min ago</span>
-          </div>
-        </div>
-        <div className="message">
-          <img src="./avatar.png" alt="" />
-          <div className="texts">
-            <p>hello my name is Amrita</p>
-            <span>1 min ago</span>
-          </div>
-        </div>
-        <div className="message own">
-          <img src="./avatar.png" alt="" />
-          <div className="texts">
-            <p>hello my name is Amrita</p>
-            <span>1 min ago</span>
-          </div>
-        </div>
-        <div className="message">
-          <img src="./avatar.png" alt="" />
-          <div className="texts">
-            <p>hello my name is Amrita</p>
-            <span>1 min ago</span>
-          </div>
-        </div>
-        <div className="message own">
-          <img src="./avatar.png" alt="" />
-          <div className="texts">
-            <p>hello my name is Amrita</p>
-            <span>1 min ago</span>
-          </div>
-        </div>
-        <div className="message">
-          <img src="./avatar.png" alt="" />
-          <div className="texts">
-            <p>hello my name is Amrita</p>
-            <span>1 min ago</span>
-          </div>
-        </div>
-        <div className="message own">
-          <img src="./avatar.png" alt="" />
-          <div className="texts">
-            <p>hello my name is Amrita</p>
-            <span>1 min ago</span>
-          </div>
-        </div>
-        <div className="message">
-          <img src="./avatar.png" alt="" />
-          <div className="texts">
+            <img src="./bg.jpg" alt="" />
             <p>hello my name is Amrita</p>
             <span>1 min ago</span>
           </div>
