@@ -1,10 +1,26 @@
 import "./chat.css";
 import EmojiPicker from "emoji-picker-react";
 import { useState, useRef, useEffect } from "react";
+import {
+  arrayUnion,
+  doc,
+  getDoc,
+  onSnapshot,
+  updateDoc,
+} from "firebase/firestore";
+import { db } from "../../lib/firebase";
+import { useChatStore } from "../../lib/chatStore";
+import { useUserStore } from "../../lib/userStore";
+import upload from "../../lib/upload";
+import { format } from "timeago.js";
 
 const Chat = () => {
   const [open, setOpen] = useState(false);
   const [text, setText] = useState("");
+  const [chat, setChat] = useState();
+
+  const { chatId } = useChatStore();
+  const { currentUser } = useUserStore();
 
   const endRef = useRef(null);
   useEffect(() => {
@@ -15,6 +31,51 @@ const Chat = () => {
     setText((prev) => prev + e.emoji);
     setOpen(false);
   };
+
+  // send messages ----------------------------------------------------
+  const handleSend = async () => {
+    if (text == "") {
+      return;
+    }
+
+    try {
+      await updateDoc(doc(db, "chats", chatId), {
+        messages: arrayUnion({
+          senderId: currentUser.id,
+          text,
+          createdAt: new Date(),
+        }),
+      });
+
+      const userChatsRef = doc(db, "userChats", currentUser.id);
+      const userChatsSnapshot = await getDoc(userChatsRef);
+
+      if (userChatsSnapshot.exists()) {
+        const userChatsData = userChatsSnapshot.data();
+        const chatIndex = userChatsData.chats.findIndex(
+          (c) => c.chatId == chatId
+        );
+
+        userChatsData[chatIndex].lastMessage = text;
+        userChatsData[chatIndex].isSeen = true;
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    const unSub = onSnapshot(doc(db, "chats", chatId), (res) => {
+      setChat(res.data());
+    });
+
+    return () => {
+      unSub();
+    };
+  }, [chatId]);
+
+  // chat messages -----------------------------------------------
+
   return (
     <div className="chat">
       {/* ----------------------------------- chat title ----------------------------------- */}
@@ -42,49 +103,6 @@ const Chat = () => {
           </div>
         </div>
 
-        <div className="message own">
-          <img src="./avatar.png" alt="" />
-          <div className="texts">
-            <p>hello my name is Amrita</p>
-            <span>1 min ago</span>
-          </div>
-        </div>
-        <div className="message">
-          <img src="./avatar.png" alt="" />
-          <div className="texts">
-            <img src="./bg.jpg" alt="" />
-            <p>hello my name is Amrita</p>
-            <span>1 min ago</span>
-          </div>
-        </div>
-        <div className="message own">
-          <img src="./avatar.png" alt="" />
-          <div className="texts">
-            <p>hello my name is Amrita</p>
-            <span>1 min ago</span>
-          </div>
-        </div>
-        <div className="message">
-          <img src="./avatar.png" alt="" />
-          <div className="texts">
-            <p>hello my name is Amrita</p>
-            <span>1 min ago</span>
-          </div>
-        </div>
-        <div className="message own">
-          <img src="./avatar.png" alt="" />
-          <div className="texts">
-            <p>hello my name is Amrita</p>
-            <span>1 min ago</span>
-          </div>
-        </div>
-        <div className="message">
-          <img src="./avatar.png" alt="" />
-          <div className="texts">
-            <p>hello my name is Amrita</p>
-            <span>1 min ago</span>
-          </div>
-        </div>
         <div ref={endRef}></div>
       </div>
       {/* ----------------------------------- input ----------------------------------- */}
@@ -105,7 +123,9 @@ const Chat = () => {
             <EmojiPicker open={open} onEmojiClick={handleEmoji} />
           </div>
         </div>
-        <button className="sendButton">Send</button>
+        <button className="sendButton" onClick={handleSend}>
+          Send
+        </button>
       </div>
     </div>
   );
