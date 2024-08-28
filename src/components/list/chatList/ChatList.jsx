@@ -115,6 +115,11 @@ const ChatList = () => {
       ))}
 
       {addMode && <AddUser />}
+      <p>No users?</p>
+      <p>
+        Add a friend or add me by clicking on the add button next to the search
+        bar and typing "Amrita"
+      </p>
     </div>
   );
 };

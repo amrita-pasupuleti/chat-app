@@ -1,4 +1,24 @@
 .detail {
+  button {
+    padding: 10px;
+    background-color: rgba(107, 63, 228, 0.513);
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 15px;
+
+    &:hover {
+      background-color: #7237c07e;
+    }
+
+    &.logout {
+      background-color: #1a73e8;
+      padding: 15px;
+    }
+    &.logout:hover {
+      background-color: #2f5b95;
+    }
+  }
   flex: 1;
 
   .user {
@@ -78,23 +98,6 @@
             cursor: pointer;
           }
         }
-      }
-    }
-    button {
-      padding: 15px;
-      background-color: rgba(230, 74, 105, 0.553);
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-
-      &:hover {
-        background-color: rgba(220, 20, 60, 0.796);
-      }
-
-      &.logout {
-        padding: 10px;
-        background-color: #1a73e8;
       }
     }
   }

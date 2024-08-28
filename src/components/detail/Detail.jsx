@@ -1,71 +1,80 @@
-import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { useChatStore } from "../../lib/chatStore";
 import { auth, db } from "../../lib/firebase";
 import { useUserStore } from "../../lib/userStore";
 import "./detail.css";
+import React, { useState } from "react";
 
 const Detail = () => {
-  const {
-    chatId,
-    user,
-    isCurrentUserBlocked,
-    isReceiverBlocked,
-    changeBlock,
-    resetChat,
-  } = useChatStore();
+  const { chatId, user } = useChatStore();
   const { currentUser } = useUserStore();
-
-  const handleBlock = async () => {
-    if (!user) return;
-
-    const userDocRef = doc(db, "users", currentUser.uid);
-
-    try {
-      await updateDoc(userDocRef, {
-        blocked: isReceiverBlocked
-          ? arrayRemove(user.uid)
-          : arrayUnion(user.uid),
-      });
-      changeBlock();
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   const handleLogout = () => {
     auth.signOut();
   };
+
+  const [isArrowUp, setIsArrowUp] = useState(true);
 
   return (
     <div className="detail">
       <div className="user">
         <img src={user?.avatar || "./avatar.png"} alt="" />
         <h2>{user?.username}</h2>
-        <p>Lorem ipsum dolor sit amet.</p>
+        <p>A user of this chat app</p>
       </div>
+
       <div className="info">
+        {/* Chat Settings -------------------------------- */}
         <div className="option">
           <div className="title">
             <span>Chat Settings</span>
-            <img src="./arrowUp.png" alt="" />
+            <img
+              src={isArrowUp ? "./arrowUp.png" : "./arrowDown.png"}
+              alt="Arrow"
+              onClick={(e) => {
+                const currentSrc = e.target.src;
+                const newSrc = currentSrc.includes("arrowUp.png")
+                  ? "./arrowDown.png"
+                  : "./arrowUp.png";
+                e.target.src = newSrc;
+              }}
+              style={{ cursor: "pointer" }}
+            />
           </div>
         </div>
-        <div className="option">
-          <div className="title">
-            <span>Chat Settings</span>
-            <img src="./arrowUp.png" alt="" />
-          </div>
-        </div>
+        {/* Privacy and help -------------------------------- */}
         <div className="option">
           <div className="title">
             <span>Privacy & help</span>
-            <img src="./arrowUp.png" alt="" />
+            <img
+              src={isArrowUp ? "./arrowUp.png" : "./arrowDown.png"}
+              alt="Arrow"
+              onClick={(e) => {
+                const currentSrc = e.target.src;
+                const newSrc = currentSrc.includes("arrowUp.png")
+                  ? "./arrowDown.png"
+                  : "./arrowUp.png";
+                e.target.src = newSrc;
+              }}
+              style={{ cursor: "pointer" }}
+            />
           </div>
         </div>
+        {/* Shared photos -------------------------------- */}
         <div className="option">
           <div className="title">
             <span>Shared photos</span>
-            <img src="./arrowDown.png" alt="" />
+            <img
+              src={isArrowUp ? "./arrowUp.png" : "./arrowDown.png"}
+              alt="Arrow"
+              onClick={(e) => {
+                const currentSrc = e.target.src;
+                const newSrc = currentSrc.includes("arrowUp.png")
+                  ? "./arrowDown.png"
+                  : "./arrowUp.png";
+                e.target.src = newSrc;
+              }}
+              style={{ cursor: "pointer" }}
+            />
           </div>
           <div className="photos">
             <div className="photoItem">
@@ -80,19 +89,25 @@ const Detail = () => {
             </div>
           </div>
         </div>
+        {/* Shared Files -------------------------------- */}
         <div className="option">
           <div className="title">
             <span>Shared Files</span>
-            <img src="./arrowUp.png" alt="" />
+            <img
+              src={isArrowUp ? "./arrowUp.png" : "./arrowDown.png"}
+              alt="Arrow"
+              onClick={(e) => {
+                const currentSrc = e.target.src;
+                const newSrc = currentSrc.includes("arrowUp.png")
+                  ? "./arrowDown.png"
+                  : "./arrowUp.png";
+                e.target.src = newSrc;
+              }}
+              style={{ cursor: "pointer" }}
+            />
           </div>
         </div>
-        <button onClick={handleBlock}>
-          {isCurrentUserBlocked
-            ? "You are Blocked!"
-            : isReceiverBlocked
-            ? "User blocked"
-            : "Block User"}
-        </button>
+
         <button className="logout" onClick={handleLogout}>
           Logout
         </button>
